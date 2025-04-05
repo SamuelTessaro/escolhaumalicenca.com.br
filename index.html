@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Licenças de Software</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--secondary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .intro p {
+            max-width: 800px;
+            margin: 1rem auto;
+        }
+        
+        .search-section {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .search-box {
+            width: 100%;
+            max-width: 600px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-button {
+            background-color: white;
+            border: 1px solid var(--primary);
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-button:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .filter-button.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .licenses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .license-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .license-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .license-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .license-tag {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .permission-list {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .permission {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            background-color: #e8f4fd;
+            color: var(--primary);
+        }
+        
+        .restriction {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            background-color: #fde8e8;
+            color: var(--accent);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: #777;
+        }
+        
+        .close-button:hover {
+            color: var(--accent);
+        }
+        
+        .comparison-section {
+            margin-top: 4rem;
+            text-align: center;
+        }
+        
+        .comparison-container {
+            overflow-x: auto;
+            margin-top: 2rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .footer {
+            margin-top: 4rem;
+            text-align: center;
+            padding: 2rem 0;
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .footer a {
+            color: var(--light);
+        }
+        
+        @media (max-width: 768px) {
+            .licenses-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+        }
+        
+        .license-details {
+            margin-top: 1rem;
+        }
+        
+        .features-table {
+            width: 100%;
+            margin-top: 1rem;
+            border-collapse: collapse;
+        }
+        
+        .features-table td {
+            padding: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .features-table tr td:first-child {
+            font-weight: bold;
+            width: 40%;
+        }
+        
+        .yes {
+            color: var(--success);
+        }
+        
+        .no {
+            color: var(--accent);
+        }
+        
+        .selector-container {
+            margin-top: 3rem;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question {
+            margin: 1rem 0;
+        }
+        
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .option-button {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--primary);
+            border-radius: 4px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .option-button:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .option-button.selected {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .result-container {
+            margin-top: 2rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: #f0f7ff;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Guia de Licenças de Software</h1>
+        <p>Entenda e escolha a licença ideal para o seu projeto</p>
+    </header>
+    
+    <div class="container">
+        <section class="intro">
+            <h2>Encontre a licença perfeita para seu software</h2>
+            <p>Escolher a licença correta é uma decisão importante que define como seu código pode ser usado, modificado e distribuído. Este guia ajuda você a entender as principais licenças e fazer a escolha mais adequada para as suas necessidades.</p>
+        </section>
+        
+        <section class="search-section">
+            <input type="text" class="search-box" placeholder="Buscar licença por nome ou característica..." id="searchBox">
+        </section>
+        
+        <section class="filters">
+            <button class="filter-button active" data-filter="all">Todas</button>
+            <button class="filter-button" data-filter="permissive">Permissivas</button>
+            <button class="filter-button" data-filter="copyleft">Copyleft</button>
+            <button class="filter-button" data-filter="creative">Creative Commons</button>
+            <button class="filter-button" data-filter="public">Domínio Público</button>
+        </section>
+        
+        <section class="licenses-grid" id="licensesGrid">
+            <!-- MIT License -->
+            <div class="license-card" data-type="permissive" data-id="mit">
+                <h3>MIT License <span class="license-tag">Permissiva</span></h3>
+                <p>Uma licença permissiva simples e curta que exige apenas a preservação do aviso de direitos autorais e isenção de responsabilidade.</p>
+                <div class="permission-list">
+                    <span class="permission">Uso Comercial</span>
+                    <span class="permission">Modificação</span>
+                    <span class="permission">Distribuição</span>
+                    <span class="permission">Uso Privado</span>
+                    <span class="restriction">Responsabilidade</span>
+                </div>
+            </div>
+            
+            <!-- Apache License -->
+            <div class="license-card" data-type="permissive" data-id="apache">
+                <h3>Apache License 2.0 <span class="license-tag">Permissiva</span></h3>
+                <p>Uma licença permissiva que também fornece uma concessão expressa de direitos de patente e proteção contra reivindicações de patentes.</p>
+                <div class="permission-list">
+                    <span class="permission">Uso Comercial</span>
+                    <span class="permission">Modificação</span>
+                    <span class="permission">Distribuição</span>
+                    <span class="permission">Patentes</span>
+                    <span class="restriction">Marca Registrada</span>
+                    <span class="restriction">Responsabilidade</span>
+                </div>
+            </div>
+            
+            <!-- BSD 2-Clause -->
+            <div class="license-card" data-type="permissive" data-id="bsd2">
+                <h3>BSD 2-Clause <span class="license-tag">Permissiva</span></h3>
+                <p>Uma licença permissiva semelhante à MIT, mas com uma cláusula específica que proíbe o uso do nome do titular dos direitos autorais para promoção.</p>
+                <div class="permission-list">
+                    <span class="permission">Uso Comercial</span>
+                    <span class="permission">Modificação</span>
+                    <span class="permission">Distribuição</span>
+                    <span class="permission">Uso Privado</span>
+                    <span class="restriction">Responsabilidade</span>
+                </div>
+            </div>
+            
+            <!-- BSD 3-Clause -->
+            <div class="license-card" data-type="permissive" data-id="bsd3">
+                <h3>BSD 3-Clause <span class="license-tag">Permissiva</span></h3>
+                <p>Semelhante à BSD 2-Clause, mas com uma cláusula adicional que proíbe o uso do nome dos colaboradores para endossar produtos derivados.</p>
+                <div class="permission-list">
+                    <span class="permission">Uso Comercial</span>
+                    <span class="permission">Modificação</span>
+                    <span class="permission">Distribuição</span>
+                    <span class="permission">Uso Privado</span>
+                    <span class="restriction">Endosso</span>
+                    <span class="restriction">Responsabilidade</span>
+                </div>
+            </div>
+            
+            <!-- GPL v3 -->
+            <div class="license-card" data-type="copyleft" data-id="gpl">
+                <h3>GNU GPL v3 <span class="license-tag">Copyleft</span></h3>
+                <p>Uma licença copyleft forte que exige que qualquer software derivado também seja distribuído sob a mesma licença.</p>
+                <div class="permission-list">
+                    <span class="permission">Uso Comercial</span>
+                    <span class="permission">Modificação</span>
+                    <span class="permission">Distribuição</span>
+                    <span class="permission">Patentes</span>
+                    <span class="restriction">Código Fechado</span>
+                    <span class="restriction">Responsabilidade</span>
+                </div>
+            </div>
+            
+            <!-- LGPL -->
+            <div class="license-card" data-type="copyleft" data-id="lgpl">
+                <h3>GNU LGPL <span class="license-tag">Copyleft</span></h3>
+                <p>Uma licença copyleft mais permissiva que permite a vinculação com software proprietário sem exigir que este seja liberado sob a mesma licença.</p>
+                <div class="permission-list">
+                    <span class="permission">Uso Comercial</span>
+                    <span class="permission">Modificação</span>
+                    <span class="permission">Distribuição</span>
+                    <span class="permission">Vinculação</span>
+                    <span class="restriction">Código Modificado</span>
+                    <span class="restriction">Responsabilidade</span>
+                </div>
+            </div>
+            
+            <!-- MPL -->
+            <div class="license-card" data-type="copyleft" data-id="mpl">
+                <h3>Mozilla Public License <span class="license-tag">Copyleft</span></h3>
+                <p>Uma licença copyleft moderada que permite a combinação com código proprietário.</p>
+                <div class="permission-list">
+                    <span class="permission">Uso Comercial</span>
+                    <span class="permission">Modificação</span>
+                    <span class="permission">Distribuição</span>
+                    <span class="permission">Uso Privado</span>
+                    <span class="restriction">Responsabilidade</span>
+                    <span class="restriction">Código Modificado</span>
+                </div>
+            </div>
+            
+            <!-- Creative Commons -->
+            <div class="license-card" data-type="creative" data-id="cc">
+                <h3>Creative Commons <span class="license-tag">Variadas</span></h3>
+                <p>Uma família de licenças para obras criativas com diferentes combinações de atribuições, distribuição e modificação.</p>
+                <div class="permission-list">
+                    <span class="permission">Atribuição (BY)</span>
+                    <span class="permission">Compartilhamento (SA)</span>
+                    <span class="restriction">Uso Comercial (NC)</span>
+                    <span class="restriction">Derivação (ND)</span>
+                </div>
+            </div>
+            
+            <!-- Eclipse Public License -->
+            <div class="license-card" data-type="copyleft" data-id="epl">
+                <h3>Eclipse Public License <span class="license-tag">Copyleft</span></h3>
+                <p>Uma licença copyleft que permite vinculação com software proprietário e inclui proteções de patente.</p>
+                <div class="permission-list">
+                    <span class="permission">Uso Comercial</span>
+                    <span class="permission">Modificação</span>
+                    <span class="permission">Distribuição</span>
+                    <span class="permission">Patentes</span>
+                    <span class="restriction">Código Modificado</span>
+                </div>
+            </div>
+            
+            <!-- Unlicense -->
+            <div class="license-card" data-type="public" data-id="unlicense">
+                <h3>Unlicense <span class="license-tag">Domínio Público</span></h3>
+                <p>Uma licença que dedica o trabalho ao domínio público, renunciando a todos os direitos autorais.</p>
+                <div class="permission-list">
+                    <span class="permission">Uso Comercial</span>
+                    <span class="permission">Modificação</span>
+                    <span class="permission">Distribuição</span>
+                    <span class="permission">Uso Privado</span>
+                    <span class="restriction">Responsabilidade</span>
+                </div>
+            </div>
+            
+            <!-- Public Domain -->
+            <div class="license-card" data-type="public" data-id="publicdomain">
+                <h3>Domínio Público <span class="license-tag">Domínio Público</span></h3>
+                <p>Obras que não estão protegidas por direitos autorais ou cujos direitos expiraram, permitindo uso irrestrito.</p>
+                <div class="permission-list">
+                    <span class="permission">Uso Comercial</span>
+                    <span class="permission">Modificação</span>
+                    <span class="permission">Distribuição</span>
+                    <span class="permission">Uso Irrestrito</span>
+                    <span class="restriction">Responsabilidade</span>
+                </div>
+            </div>
+            
+            <!-- Artistic License -->
+            <div class="license-card" data-type="permissive" data-id="artistic">
+                <h3>Artistic License <span class="license-tag">Permissiva</span></h3>
+                <p>Uma licença frequentemente usada para software Perl que permite uso comercial com algumas restrições.</p>
+                <div class="permission-list">
+                    <span class="permission">Uso Comercial</span>
+                    <span class="permission">Modificação</span>
+                    <span class="permission">Distribuição</span>
+                    <span class="restriction">Integridade</span>
+                    <span class="restriction">Responsabilidade</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="selector-container">
+            <h2>Assistente de Seleção de Licença</h2>
+            <p>Responda algumas perguntas simples para encontrar a licença mais adequada para o seu projeto:</p>
+            
+            <div class="question">
+                <h3>1. Você quer permitir uso comercial do seu software?</h3>
+                <div class="options">
+                    <button class="option-button" data-question="commercial" data-value="yes">Sim</button>
+                    <button class="option-button" data-question="commercial" data-value="no">Não</button>
+                    <button class="option-button" data-question="commercial" data-value="maybe">Não tenho certeza</button>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>2. Você quer que modificações do seu código também sejam de código aberto?</h3>
+                <div class="options">
+                    <button class="option-button" data-question="modifications" data-value="yes">Sim (Copyleft)</button>
+                    <button class="option-button" data-question="modifications" data-value="no">Não (Permissiva)</button>
+                    <button class="option-button" data-question="modifications" data-value="maybe">Não tenho certeza</button>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>3. Você se preocupa com patentes de software?</h3>
+                <div class="options">
+                    <button class="option-button" data-question="patents" data-value="yes">Sim</button>
+                    <button class="option-button" data-question="patents" data-value="no">Não</button>
+                    <button class="option-button" data-question="patents" data-value="maybe">Não tenho certeza</button>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>4. Qual é o nível de liberdade que você quer para os usuários?</h3>
+                <div class="options">
+                    <button class="option-button" data-question="freedom" data-value="high">Máxima liberdade</button>
+                    <button class="option-button" data-question="freedom" data-value="medium">Liberdade com algumas restrições</button>
+                    <button class="option-button" data-question="freedom" data-value="low">Controle sobre modificações</button>
+                </div>
+            </div>
+            
+            <div class="result-container" id="licenseResult">
+                <h3>Licenças Recomendadas</h3>
+                <div id="recommendationResult"></div>
+            </div>
+        </section>
+        
+        <section class="comparison-section">
+            <h2>Comparação de Licenças</h2>
+            <p>Compare as características das licenças mais populares</p>
+            
+            <div class="comparison-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Licença</th>
+                            <th>Tipo</th>
+                            <th>Uso Comercial</th>
+                            <th>Modificação</th>
+                            <th>Distribuição</th>
+                            <th>Copyleft</th>
+                            <th>Proteção de Patentes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MIT</td>
+                            <td>Permissiva</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Não</td>
+                            <td>Não</td>
+                        </tr>
+                        <tr>
+                            <td>Apache 2.0</td>
+                            <td>Permissiva</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Não</td>
+                            <td>Sim</td>
+                        </tr>
+                        <tr>
+                            <td>BSD 2-Clause</td>
+                            <td>Permissiva</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Não</td>
+                            <td>Não</td>
+                        </tr>
+                        <tr>
+                            <td>BSD 3-Clause</td>
+                            <td>Permissiva</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Não</td>
+                            <td>Não</td>
+                        </tr>
+                        <tr>
+                            <td>GPL v3</td>
+                            <td>Copyleft</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Forte</td>
+                            <td>Sim</td>
+                        </tr>
+                        <tr>
+                            <td>LGPL</td>
+                            <td>Copyleft</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Fraco</td>
+                            <td>Sim</td>
+                        </tr>
+                        <tr>
+                            <td>MPL</td>
+                            <td>Copyleft</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Fraco</td>
+                            <td>Sim</td>
+                        </tr>
+                        <tr>
+                            <td>Creative Commons</td>
+                            <td>Variadas</td>
+                            <td>Depende</td>
+                            <td>Depende</td>
+                            <td>Sim</td>
+                            <td>Depende</td>
+                            <td>Não</td>
+                        </tr>
+                        <tr>
+                            <td>Eclipse Public License</td>
+                            <td>Copyleft</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Fraco</td>
+                            <td>Sim</td>
+                        </tr>
+                        <tr>
+                            <td>Unlicense</td>
+                            <td>Domínio Público</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Não</td>
+                            <td>Não</td>
+                        </tr>
+                        <tr>
+                            <td>Domínio Público</td>
+                            <td>Domínio Público</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Não</td>
+                            <td>Não</td>
+                        </tr>
+                        <tr>
+                            <td>Artistic License</td>
+                            <td>Permissiva</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Parcial</td>
+                            <td>Não</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Modal para detalhes da licença -->
+    <div id="licenseModal" class="modal">
+        <div class="modal-content">
+            <button class="close-button">&times;</button>
+            <div id="licenseModalContent"></div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>Guia de Licenças de Software © 2025</p>
+        <p>Este guia é apenas informativo. Consulte um advogado para aconselhamento legal específico.</p>
+    </footer>
+    
+    <script>
+        // Filtrar licenças
+        const filterButtons = document.querySelectorAll('.filter-button');
+        const licenseCards = document.querySelectorAll('.license-card');
+        const searchBox = document.getElementById('searchBox');
+        const modal = document.getElementById('licenseModal');
+        const modalContent = document.getElementById('licenseModalContent');
+        const closeButton = document.querySelector('.close-button');
+        
+        // Detalhes das licenças
+        const licenseDetails = {
+            mit: {
+                name: "MIT License",
+                description: "A licença MIT é uma licença de software permissiva originada no Instituto de Tecnologia de Massachusetts (MIT). É uma licença curta e simples com condições que exigem apenas a preservação de avisos de direitos autorais e de licença.",
+                pros: ["Muito simples e fácil de entender", "Altamente permissiva", "Amplamente usada e reconhecida", "Compatível com licenças copyleft"],
+                cons: ["Não fornece proteção explícita de patentes", "Menos proteção para os criadores do que licenças copyleft"],
+                example: "Esta licença é popular para bibliotecas e frameworks como jQuery, .NET Core, Rails e muitos pacotes npm.",
+                permissions: ["Uso comercial", "Modificação", "Distribuição", "Uso privado"],
+                restrictions: ["Responsabilidade", "Garantia"],
+                requirements: ["Incluir aviso de licença e copyright"]
+            },
+            apache: {
+                name: "Apache License 2.0",
+                description: "A licença Apache 2.0 é uma licença de software permissiva que permite aos usuários usar o software para qualquer propósito, modificá-lo e distribuir versões modificadas do software.",
+                pros: ["Fornece concessão explícita de direitos de patente", "Permissiva", "Amplamente adotada", "Protege contra litígios de patentes"],
+                cons: ["Mais complexa que MIT ou BSD", "Requisitos mais rigorosos para distribuição"],
+                example: "Apache HTTP Server, Android, Hadoop e muitos projetos da Apache Software Foundation.",
+                permissions: ["Uso comercial", "Modificação", "Distribuição", "Uso privado", "Uso de patente"],
+                restrictions: ["Responsabilidade", "Garantia", "Uso de marca registrada"],
+                requirements: ["Incluir aviso de licença e copyright", "Incluir NOTICE se existir", "Declarar mudanças significativas"]
+            },
+            bsd2: {
+                name: "BSD 2-Clause License",
+                description: "Também conhecida como 'Simplified BSD License' ou 'FreeBSD License', esta licença permissiva tem apenas duas cláusulas principais.",
+                pros: ["Muito simples", "Altamente permissiva", "Menos restrições que MIT"],
+                cons: ["Não fornece proteção de patentes", "Menos proteção para os criadores"],
+                example: "FreeBSD e muitos outros projetos de software de código aberto.",
+                // Complemento para o licenseDetails no final do arquivo HTML
+            },
+            bsd3: {
+                name: "BSD 3-Clause License",
+                description: "Também conhecida como 'New BSD License' ou 'Modified BSD License', esta licença permissiva acrescenta uma cláusula à BSD 2-Clause que proíbe o uso do nome dos autores para endossar produtos derivados.",
+                pros: ["Permissiva", "Amplamente adotada", "Protege o nome dos autores"],
+                cons: ["Não fornece proteção de patentes", "Menos proteção para o código-fonte"],
+                example: "Python, Django, e muitos componentes do macOS.",
+                permissions: ["Uso comercial", "Modificação", "Distribuição", "Uso privado"],
+                restrictions: ["Responsabilidade", "Garantia", "Uso do nome dos autores para endosso"],
+                requirements: ["Incluir aviso de licença e copyright"]
+            },
+            gpl: {
+                name: "GNU General Public License v3",
+                description: "A GPL é uma licença copyleft que garante que o software derivado seja distribuído sob os mesmos termos. A versão 3 acrescentou proteções contra patenteamento e tivoização.",
+                pros: ["Protege liberdades do usuário", "Assegura que derivações permaneçam de código aberto", "Proteção contra patentes", "Impede tivoização"],
+                cons: ["Pode restringir adoção em ambientes corporativos", "Incompatível com algumas licenças", "Complexa"],
+                example: "Linux, GNU tools, WordPress, e muitos projetos GNU.",
+                permissions: ["Uso comercial", "Modificação", "Distribuição", "Uso privado", "Uso de patente"],
+                restrictions: ["Responsabilidade", "Garantia", "Código proprietário"],
+                requirements: ["Divulgar código-fonte", "Incluir aviso de licença e copyright", "Usar a mesma licença", "Documentar mudanças"]
+            },
+            lgpl: {
+                name: "GNU Lesser General Public License",
+                description: "A LGPL é uma versão mais permissiva da GPL que permite vincular o software a código proprietário sem exigir que este também seja licenciado sob LGPL.",
+                pros: ["Mais flexível que a GPL", "Permite uso em software proprietário", "Protege o código da biblioteca"],
+                cons: ["Menos proteção para liberdades do usuário", "Complexa", "Distinção entre 'vinculação' e 'derivação' pode ser ambígua"],
+                example: "GTK+, Mozilla Firefox (parte), LibreOffice (parte).",
+                permissions: ["Uso comercial", "Modificação", "Distribuição", "Uso privado", "Vinculação com código proprietário"],
+                restrictions: ["Responsabilidade", "Garantia"],
+                requirements: ["Divulgar código-fonte da biblioteca", "Incluir aviso de licença e copyright", "Usar a mesma licença para modificações na biblioteca"]
+            },
+            mpl: {
+                name: "Mozilla Public License 2.0",
+                description: "A MPL é uma licença copyleft fraca que encontra equilíbrio entre as licenças permissivas e as copyleft fortes.",
+                pros: ["Equilíbrio entre permissiva e copyleft", "Compatível com GPL", "Proteção de patentes", "Clareza legal"],
+                cons: ["Menos conhecida que GPL ou MIT", "Requer gerenciamento cuidadoso de arquivos"],
+                example: "Firefox, Thunderbird, e outros projetos Mozilla.",
+                permissions: ["Uso comercial", "Modificação", "Distribuição", "Uso privado", "Uso de patente"],
+                restrictions: ["Responsabilidade", "Garantia", "Uso da marca registrada"],
+                requirements: ["Divulgar código-fonte dos arquivos modificados", "Incluir aviso de licença e copyright"]
+            },
+            cc: {
+                name: "Creative Commons",
+                description: "As licenças Creative Commons são um conjunto de licenças para conteúdo criativo que oferecem diferentes níveis de permissão e restrição.",
+                pros: ["Flexível com várias opções", "Amplamente compreendida", "Fácil de usar com trabalhos criativos"],
+                cons: ["Não recomendada para software", "Pode causar confusão com múltiplas variações"],
+                example: "Wikipedia (CC BY-SA), Flickr (várias licenças CC), muitas mídias e documentações.",
+                permissions: ["Varia conforme a licença específica"],
+                restrictions: ["Varia conforme a licença específica"],
+                requirements: ["Atribuição (sempre presente)", "Outras variações incluem: ShareAlike (SA), NoDerivatives (ND), NonCommercial (NC)"]
+            },
+            epl: {
+                name: "Eclipse Public License",
+                description: "A EPL é uma licença copyleft fraca que permite vinculação com código proprietário enquanto protege o código original.",
+                pros: ["Proteção contra litígios", "Permite uso comercial", "Equilíbrio entre permissiva e copyleft"],
+                cons: ["Menos conhecida fora do ecossistema Eclipse", "Complexa"],
+                example: "Eclipse IDE, projetos da Eclipse Foundation.",
+                permissions: ["Uso comercial", "Modificação", "Distribuição", "Uso privado", "Uso de patente"],
+                restrictions: ["Responsabilidade", "Garantia"],
+                requirements: ["Divulgar código-fonte de arquivos modificados", "Incluir aviso de licença e copyright"]
+            },
+            unlicense: {
+                name: "Unlicense",
+                description: "A Unlicense é uma licença que dedica o trabalho ao domínio público, renunciando a todos os direitos autorais.",
+                pros: ["Máxima liberdade para usuários", "Extremamente simples", "Nenhuma restrição"],
+                cons: ["Pode não ser reconhecida em todas as jurisdições", "Não fornece proteção para o autor"],
+                example: "Vários projetos menores, bibliotecas utilitárias.",
+                permissions: ["Uso comercial", "Modificação", "Distribuição", "Uso privado"],
+                restrictions: ["Nenhuma"],
+                requirements: ["Nenhum"]
+            },
+            publicdomain: {
+                name: "Domínio Público",
+                description: "Obras em domínio público não estão protegidas por direitos autorais e podem ser usadas por qualquer pessoa sem restrições.",
+                pros: ["Nenhuma restrição", "Máxima liberdade"],
+                cons: ["Não é uma licença formal", "Varia conforme jurisdição", "Pode ser difícil determinar status"],
+                example: "Obras cujos direitos autorais expiraram, obras doadas ao domínio público.",
+                permissions: ["Uso comercial", "Modificação", "Distribuição", "Uso privado"],
+                restrictions: ["Nenhuma"],
+                requirements: ["Nenhum"]
+            },
+            artistic: {
+                name: "Artistic License 2.0",
+                description: "A Artistic License é uma licença permissiva com algumas condições especiais, popularizada pela comunidade Perl.",
+                pros: ["Permite uso comercial", "Flexível", "Bem aceita na comunidade Perl"],
+                cons: ["Complexa", "Menos conhecida fora do ecossistema Perl"],
+                example: "Perl, muitos módulos CPAN.",
+                permissions: ["Uso comercial", "Modificação", "Distribuição", "Uso privado"],
+                restrictions: ["Responsabilidade", "Garantia"],
+                requirements: ["Incluir aviso de licença e copyright", "Documentar mudanças significativas"]
+            }
+        };
+        
+        // Adicionar funcionalidade de filtro
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remover classe ativa de todos os botões
+                filterButtons.forEach(b => b.classList.remove('active'));
+                
+                // Adicionar classe ativa ao botão clicado
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                // Filtrar os cards de licença
+                licenseCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-type') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Funcionalidade de busca
+        searchBox.addEventListener('input', () => {
+            const searchTerm = searchBox.value.toLowerCase();
+            
+            licenseCards.forEach(card => {
+                const licenseTitle = card.querySelector('h3').textContent.toLowerCase();
+                const licenseDescription = card.querySelector('p').textContent.toLowerCase();
+                const licensePermissions = Array.from(card.querySelectorAll('.permission, .restriction'))
+                    .map(span => span.textContent.toLowerCase());
+                
+                if (licenseTitle.includes(searchTerm) || 
+                    licenseDescription.includes(searchTerm) || 
+                    licensePermissions.some(permission => permission.includes(searchTerm))) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+        
+        // Funcionalidade do modal de detalhes da licença
+        licenseCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const licenseId = card.getAttribute('data-id');
+                const license = licenseDetails[licenseId];
+                
+                // Preencher o conteúdo do modal
+                modalContent.innerHTML = `
+                    <h2>${license.name}</h2>
+                    <p>${license.description}</p>
+                    
+                    <div class="license-details">
+                        <table class="features-table">
+                            <tr>
+                                <td>Vantagens:</td>
+                                <td>${license.pros.map(pro => `<span class="yes">✓</span> ${pro}`).join('<br>')}</td>
+                            </tr>
+                            <tr>
+                                <td>Desvantagens:</td>
+                                <td>${license.cons.map(con => `<span class="no">✗</span> ${con}`).join('<br>')}</td>
+                            </tr>
+                            <tr>
+                                <td>Exemplo de uso:</td>
+                                <td>${license.example}</td>
+                            </tr>
+                            <tr>
+                                <td>Permissões:</td>
+                                <td>${license.permissions.map(permission => `<span class="permission">${permission}</span>`).join(' ')}</td>
+                            </tr>
+                            <tr>
+                                <td>Restrições:</td>
+                                <td>${license.restrictions.map(restriction => `<span class="restriction">${restriction}</span>`).join(' ')}</td>
+                            </tr>
+                            <tr>
+                                <td>Requisitos:</td>
+                                <td>${license.requirements.map(req => `• ${req}`).join('<br>')}</td>
+                            </tr>
+                        </table>
+                    </div>
+                `;
+                
+                // Exibir o modal
+                modal.style.display = 'block';
+            });
+        });
+        
+        // Fechar o modal quando clicar no botão de fechar
+        closeButton.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        
+        // Fechar o modal quando clicar fora do conteúdo
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // Assistente de seleção de licença
+        const optionButtons = document.querySelectorAll('.option-button');
+        const resultContainer = document.getElementById('licenseResult');
+        const recommendationResult = document.getElementById('recommendationResult');
+        
+        // Armazenar as respostas do usuário
+        const userAnswers = {
+            commercial: null,
+            modifications: null,
+            patents: null,
+            freedom: null
+        };
+        
+        // Adicionar evento aos botões de opção
+        optionButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const question = button.getAttribute('data-question');
+                const value = button.getAttribute('data-value');
+                
+                // Remover classe 'selected' de todos os botões da mesma pergunta
+                document.querySelectorAll(`.option-button[data-question="${question}"]`)
+                    .forEach(b => b.classList.remove('selected'));
+                
+                // Adicionar classe 'selected' ao botão clicado
+                button.classList.add('selected');
+                
+                // Armazenar a resposta
+                userAnswers[question] = value;
+                
+                // Verificar se todas as perguntas foram respondidas
+                if (Object.values(userAnswers).every(answer => answer !== null)) {
+                    // Mostrar recomendações
+                    showRecommendations();
+                }
+            });
+        });
+        
+        // Mostrar recomendações com base nas respostas
+        function showRecommendations() {
+            let recommendations = [];
+            
+            // Lógica de recomendação simples
+            if (userAnswers.commercial === 'no') {
+                recommendations.push({
+                    name: 'Creative Commons Non-Commercial',
+                    reason: 'Proíbe o uso comercial, alinhado com sua preferência.'
+                });
+            }
+            
+            if (userAnswers.modifications === 'yes') {
+                recommendations.push({
+                    name: 'GNU GPL v3',
+                    reason: 'Garante que modificações permaneçam como código aberto.'
+                });
+                
+                if (userAnswers.patents === 'yes') {
+                    recommendations.push({
+                        name: 'GNU GPL v3',
+                        reason: 'Oferece proteções contra patentes.'
+                    });
+                }
+            } else if (userAnswers.modifications === 'no') {
+                if (userAnswers.patents === 'yes') {
+                    recommendations.push({
+                        name: 'Apache License 2.0',
+                        reason: 'Permissiva e oferece proteção de patentes.'
+                    });
+                } else {
+                    recommendations.push({
+                        name: 'MIT License',
+                        reason: 'Licença permissiva, simples e amplamente adotada.'
+                    });
+                    recommendations.push({
+                        name: 'BSD 2-Clause',
+                        reason: 'Muito permissiva e simples.'
+                    });
+                }
+            }
+            
+            if (userAnswers.freedom === 'high') {
+                recommendations.push({
+                    name: 'Unlicense ou Domínio Público',
+                    reason: 'Oferece máxima liberdade para os usuários.'
+                });
+            } else if (userAnswers.freedom === 'low') {
+                recommendations.push({
+                    name: 'Mozilla Public License',
+                    reason: 'Permite controle sobre como as modificações são distribuídas.'
+                });
+            }
+            
+            // Remover duplicatas e priorizar
+            let uniqueRecommendations = [];
+            const seenNames = new Set();
+            
+            recommendations.forEach(rec => {
+                if (!seenNames.has(rec.name)) {
+                    uniqueRecommendations.push(rec);
+                    seenNames.add(rec.name);
+                }
+            });
+            
+            // Determinar recomendação final
+            let finalRecommendations = [];
+            
+            if (userAnswers.modifications === 'yes' && userAnswers.patents === 'yes') {
+                finalRecommendations.push({
+                    name: 'GNU GPL v3',
+                    reason: 'Melhor opção para garantir que modificações permaneçam como código aberto e proteger contra patentes.'
+                });
+            } else if (userAnswers.modifications === 'yes' && userAnswers.patents === 'no') {
+                finalRecommendations.push({
+                    name: 'GNU GPL v3',
+                    reason: 'Ideal para garantir que modificações permaneçam como código aberto.'
+                });
+            } else if (userAnswers.modifications === 'no' && userAnswers.patents === 'yes') {
+                finalRecommendations.push({
+                    name: 'Apache License 2.0',
+                    reason: 'Permite uso comercial e oferece proteção de patentes sem exigir que modificações sejam de código aberto.'
+                });
+            } else if (userAnswers.modifications === 'no' && userAnswers.patents === 'no') {
+                finalRecommendations.push({
+                    name: 'MIT License',
+                    reason: 'Licença simples e permissiva, amplamente adotada.'
+                });
+            }
+            
+            if (userAnswers.commercial === 'no') {
+                finalRecommendations.push({
+                    name: 'Creative Commons BY-NC',
+                    reason: 'Proíbe uso comercial enquanto permite compartilhamento.'
+                });
+            }
+            
+            if (userAnswers.freedom === 'high' && userAnswers.modifications === 'no') {
+                finalRecommendations.push({
+                    name: 'Unlicense',
+                    reason: 'Dedica o trabalho ao domínio público, oferecendo máxima liberdade.'
+                });
+            }
+            
+            // Se não houver recomendações específicas, sugerir MIT
+            if (finalRecommendations.length === 0) {
+                finalRecommendations.push({
+                    name: 'MIT License',
+                    reason: 'Licença padrão equilibrada e amplamente adotada.'
+                });
+            }
+            
+            // Exibir as recomendações
+            let html = '';
+            finalRecommendations.forEach(rec => {
+                html += `
+                    <div class="recommendation">
+                        <h4>${rec.name}</h4>
+                        <p>${rec.reason}</p>
+                    </div>
+                `;
+            });
+            
+            recommendationResult.innerHTML = html;
+            resultContainer.style.display = 'block';
+        }
+        
+        // Iniciar com o filtro "all" ativo
+        document.querySelector('.filter-button[data-filter="all"]').click();
